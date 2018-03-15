@@ -1,0 +1,17 @@
+---
+
+- name: makesure localhost ~/build exists
+  file:
+    path: ~/build
+    mode: 0700
+    state: directory
+
+- name: download cloudera management packages
+  get_url:
+    url: http://archive.cloudera.com/cm5/redhat/{{system_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/{{item}}
+    dest: ~/build/
+  with_items: "{{ cloudera_management_packages }}"
+
+- name: mv packages to roles directory
+  shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/local_install_scm_agent/files
+  with_items: "{{ cloudera_management_packages }}"

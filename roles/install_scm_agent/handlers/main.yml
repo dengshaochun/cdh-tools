@@ -1,0 +1,8 @@
+---
+
+- name: restart scm-agent
+  service:
+    name: cloudera-scm-agent
+    state: restarted
+  become: yes
+  become_method: sudo

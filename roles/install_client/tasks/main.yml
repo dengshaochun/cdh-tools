@@ -1,0 +1,38 @@
+---
+
+- name: makesure localhost ~/build exists
+  file:
+    path: ~/build
+    mode: 0700
+    state: directory
+
+
+- name: Configure Cloudera CDH repo
+  template:
+    src: cloudera-cdh.repo.j2
+    dest: /etc/yum.repos.d/cloudera-cdh.repo
+  become: yes
+  become_method: sudo
+
+
+- name: install hadoop client
+  yum: pkg="{{item}}" state=latest
+  with_items:
+    - hadoop-client
+  become: yes
+  become_method: sudo
+
+
+- name: download hdfsConfig packages
+  get_url:
+    url: "http://{{ server_host }}:{{ server_port }}/api/{{ server_api_version }}/clusters/cluster/services/hdfs/clientConfig"
+    dest: ~/build/hdfsConfig.tar.gz
+
+
+- name: Extract hdfs.tar.gz into /etc/hadoop/conf/
+  unarchive:
+    src: ~/build/hdfsConfig.tar.gz
+    dest: /etc/hadoop/conf/
+    remote_src: yes
+  become: yes
+  become_method: sudo

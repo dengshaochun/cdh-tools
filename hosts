@@ -1,0 +1,10 @@
+[local]
+localhost
+
+[master]
+cdh1
+
+[slave]
+cdh2
+cdh3
+cdh4
