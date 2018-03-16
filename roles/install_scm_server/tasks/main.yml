@@ -5,30 +5,39 @@
     path: /tmp/rpm_pkg
     state: directory
     mode: 0700
+  when: ansible_hostname == server_host
+
 
 - name: copy rpm files to cluster nodes
   copy:
       src: "{{ item }}"
       dest: /tmp/rpm_pkg/{{ item }}
   with_items: "{{ server_packages }}"
+  when: ansible_hostname == server_host
+
 
 - name: install cloudera server and db rpm from local file
   yum:
     name: /tmp/rpm_pkg/{{ item }}
     state: present
   with_items: "{{ server_packages }}"
+  when: ansible_hostname == server_host
   become: yes
   become_method: sudo
+
 
 - name: start cloudera-scm-server and db
   service:
     name: "{{ item }}"
     state: started
   with_items: "{{ server_packages }}"
+  when: ansible_hostname == server_host
   become: yes
   become_method: sudo
+
 
 - name: clean /tmp/rpm_pkg dir
   file:
     path: /tmp/rpm_pkg
     state: absent
+  when: ansible_hostname == server_host

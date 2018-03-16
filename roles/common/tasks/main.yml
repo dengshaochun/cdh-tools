@@ -16,6 +16,14 @@
     exclusive: false
 
 
+- name: install epel repo
+  yum:
+    pkg: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: installed
+  become: yes
+  become_method: sudo
+
+
 - name: install or update system utils
   yum: pkg="{{item}}" state=latest
   with_items:
@@ -24,6 +32,7 @@
     - mysql-devel
     - python-devel
     - ntp
+    - htop
   become: yes
   become_method: sudo
 

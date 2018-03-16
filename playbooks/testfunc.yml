@@ -1,0 +1,9 @@
+---
+
+- hosts: localhost
+  tasks:
+
+  - name: show debug stdout
+    debug:
+      var: ansible_enp0s8.ipv4.address
+      verbosity: 0

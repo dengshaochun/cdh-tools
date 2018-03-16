@@ -16,3 +16,5 @@ cloudera_management_packages:
 server_host: cdh1
 
 ntpserver: 192.168.21.232
+
+iface: '{{ ansible_default_ipv4.interface }}'

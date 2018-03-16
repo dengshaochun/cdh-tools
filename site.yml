@@ -1,0 +1,19 @@
+---
+
+- hosts: localhost
+  gather_facts: False
+  roles:
+  - role: download_cdh_management_pkg
+
+- hosts: cluster
+  roles:
+  - role: common
+  - role: ntp
+
+- hosts: master
+  roles:
+  - role: install_scm_server
+
+- hosts: cluster
+  roles:
+  - role: install_scm_agent

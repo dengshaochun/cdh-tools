@@ -3,7 +3,7 @@ driftfile /var/lib/ntp/drift
 restrict 127.0.0.1
 restrict -6 ::1
 
-{% if hostvars[host]['ansible_' + iface].ipv4.address == ntpserver %}
+{% if ansible_default_ipv4.address == ntpserver %}
 server 127.127.1.0 iburst local clock
 {% else %}
 server {{ ntpserver }}

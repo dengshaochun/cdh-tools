@@ -8,3 +8,9 @@ cdh1
 cdh2
 cdh3
 cdh4
+
+[cluster:children]
+master
+slave
+
+[client]
