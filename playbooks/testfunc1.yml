@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+
+  vars_files:
+  - group_vars/all
+
+  tasks:
+  - name: test with_items func
+    debug:
+      msg: "{{ hostvars[groups['cluster'][0]]['ansible_default_ipv4']['address'] }}"

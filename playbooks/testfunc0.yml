@@ -7,9 +7,8 @@
 
   tasks:
   - name: test with_items func
-    file:
-      path: "{{ item }}"
-      state: touch
+    debug:
+      msg: "{{ item }}"
     with_items:
       - "{{ agent_packages }}"
       - "{{ server_packages }}"

@@ -15,9 +15,6 @@ server_host: cdh1
 # Ntp server installed host
 ntpserver: 192.168.21.232
 
-# Tmp interface var (final)
-iface: '{{ ansible_default_ipv4.interface }}'
-
 # Download package before install cluster
 download_before: false
 
