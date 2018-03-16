@@ -9,6 +9,7 @@
   roles:
   - role: common
   - role: ntp
+  - role: install_scm_common
 
 - hosts: master
   roles:
