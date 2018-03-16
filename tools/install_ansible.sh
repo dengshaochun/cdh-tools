@@ -70,7 +70,7 @@ function check_python_version(){
 # 安装必须的系统组件
 function install_system_tools(){
     Log "INFO" "Install system tools"
-    yum install -y wget net-tools unzip python
+    yum install -y wget net-tools unzip python sshpass
     if [[ $? -eq 0 ]];
     then
         Log "SUCCESSFUL" "Install system tools successful"
