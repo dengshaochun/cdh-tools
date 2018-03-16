@@ -2,16 +2,41 @@
 
 - name: makesure localhost ~/build exists
   file:
-    path: ~/build
+    path: "{{ item }}"
     mode: 0700
     state: directory
+  with_items:
+    - ~/build
+    - "{{playbook_base_dir}}/roles/install_scm_common/files"
+    - "{{playbook_base_dir}}/roles/install_scm_agent/files"
+    - "{{playbook_base_dir}}/roles/install_scm_server/files"
+  when: download_before
+
 
 - name: download cloudera management packages
   get_url:
     url: http://archive.cloudera.com/cm5/redhat/{{system_version}}/x86_64/cm/{{cdh_version}}/RPMS/x86_64/{{item}}
     dest: ~/build/
-  with_items: "{{ cloudera_management_packages }}"
+  with_items:
+    - "{{ common_packages }}"
+    - "{{ server_packages }}"
+    - "{{ agent_packages }}"
+  when: download_before
 
-- name: mv packages to roles directory
-  shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/local_install_scm_agent/files
-  with_items: "{{ cloudera_management_packages }}"
+
+- name: mv cloudera manager common packages to roles directory
+  shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/install_scm_common/files
+  with_items: "{{ common_packages }}"
+  when: download_before
+
+
+- name: mv cloudera manager agent packages to roles directory
+  shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/install_scm_agent/files
+  with_items: "{{ agent_packages }}"
+  when: download_before
+
+
+- name: mv cloudera manager server packages to roles directory
+  shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/install_scm_server/files
+  with_items: "{{ server_packages }}"
+  when: download_before

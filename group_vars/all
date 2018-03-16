@@ -1,20 +1,36 @@
 ---
 
+# ansible project base directory
 playbook_base_dir: "~/project/cdh-tools"
 
+# Centos main version
 system_version: 7
 
+# Cloudera Hadoop version
 cdh_version: "5.8.4"
 
-cloudera_management_packages:
-  - cloudera-manager-agent-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
-  - cloudera-manager-daemons-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
-  - cloudera-manager-server-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
-  - cloudera-manager-server-db-2-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
-  - oracle-j2sdk1.7-1.7.0+update67-1.x86_64.rpm
-
+# Cloudera manager server well be install host
 server_host: cdh1
 
+# Ntp server installed host
 ntpserver: 192.168.21.232
 
+# Tmp interface var (final)
 iface: '{{ ansible_default_ipv4.interface }}'
+
+# Download package before install cluster
+download_before: false
+
+# Cloudera manager common packages
+common_packages:
+  - oracle-j2sdk1.7-1.7.0+update67-1.x86_64.rpm
+  - cloudera-manager-daemons-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+
+# Cloudera manager agent packages
+agent_packages:
+  - cloudera-manager-agent-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+
+# Cloudera manager server packages
+server_packages:
+  - cloudera-manager-server-db-2-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+  - cloudera-manager-server-5.8.4-1.cm584.p0.5.el7.x86_64.rpm

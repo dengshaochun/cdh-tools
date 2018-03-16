@@ -1,0 +1,29 @@
+---
+
+- name: make sure /tmp/rpm_pkg directory exists
+  file:
+    path: /tmp/rpm_pkg
+    state: directory
+    mode: 0700
+
+
+- name: copy rpm files to cluster nodes
+  copy:
+      src: "{{ item }}"
+      dest: /tmp/rpm_pkg/{{ item }}
+  with_items: "{{ common_packages }}"
+
+
+- name: install cloudera server and db rpm from local file
+  yum:
+    name: /tmp/rpm_pkg/{{ item }}
+    state: present
+  with_items: "{{ common_packages }}"
+  become: yes
+  become_method: sudo
+
+
+- name: clean /tmp/rpm_pkg dir
+  file:
+    path: /tmp/rpm_pkg
+    state: absent
