@@ -1,6 +1,5 @@
 # cdh-tools
 Playbook for cloudera hadoop auto install
-===================
 
 ## Playbook Description
 - `cluster.yml` install cloudera manager server and agent playbook
@@ -27,6 +26,8 @@ Role | Description
 
 ## Other Description
 `group_vars/all`: global vars
+`tools/install_ansible.sh`: a bash script which can install ansible on localhost
+`playbooks/*`: test playbooks
 
 ## Example
 

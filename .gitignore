@@ -104,3 +104,4 @@ ENV/
 *.rpm
 *.tar.gz
 *.zip
+*.retry
