@@ -7,11 +7,11 @@ system_version: 7
 cdh_version: "5.8.4"
 
 cloudera_management_packages:
-  - cloudera-manager-server-5.8.4-1.cm590.p0.249.el7.x86_64.rpm
-  - cloudera-manager-server-db-2-5.8.4-1.cm590.p0.249.el7.x86_64.rpm
+  - cloudera-manager-agent-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+  - cloudera-manager-daemons-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+  - cloudera-manager-server-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
+  - cloudera-manager-server-db-2-5.8.4-1.cm584.p0.5.el7.x86_64.rpm
   - oracle-j2sdk1.7-1.7.0+update67-1.x86_64.rpm
-  - cloudera-manager-daemons-5.8.4-1.cm590.p0.249.el7.x86_64.rpm
-  - cloudera-manager-agent-5.8.4-1.cm590.p0.249.el7.x86_64.rpm
 
 server_host: cdh1
 
