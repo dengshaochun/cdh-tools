@@ -4,7 +4,7 @@ restrict 127.0.0.1
 restrict -6 ::1
 
 {% if ansible_default_ipv4.address == ntpserver %}
-server 127.127.1.0 iburst local clock
+server 127.127.1.0
 {% else %}
 server {{ ntpserver }}
 {% endif %}

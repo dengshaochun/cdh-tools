@@ -103,11 +103,14 @@
   become_method: sudo
 
 
-- name: stop firewalld
+- name: stop firewalld and chronyd
   service:
-    name: firewalld
+    name: "{{ item }}"
     state: stopped
     enabled: no
+  with_items:
+    - firewalld
+    - chronyd
   become: yes
   become_method: sudo
 
