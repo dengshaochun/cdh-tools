@@ -30,7 +30,9 @@
   service:
     name: "{{ item }}"
     state: started
-  with_items: "{{ server_packages }}"
+  with_items:
+    - cloudera-scm-server-db
+    - cloudera-scm-server
   when: ansible_hostname == server_host
   become: yes
   become_method: sudo

@@ -14,7 +14,7 @@
   with_items: "{{ common_packages }}"
 
 
-- name: install cloudera server and db rpm from local file
+- name: install cloudera common packages
   yum:
     name: /tmp/rpm_pkg/{{ item }}
     state: present

@@ -33,6 +33,7 @@
     - python-devel
     - ntp
     - htop
+    - psmisc
   become: yes
   become_method: sudo
 
