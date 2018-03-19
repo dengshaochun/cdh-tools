@@ -38,6 +38,24 @@
   become_method: sudo
 
 
+- name: make sure /usr/share/java dir exists
+  file:
+    path: /usr/share/java
+    state: directory
+  become: yes
+  become_method: sudo
+
+
+- name: copy mysql-connector-java.jar to /usr/share/java
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/java/"{{ item }}"
+  with_items:
+    - mysql-connector-java.jar
+  become: yes
+  become_method: sudo
+
+
 - name: set timezone to Asia/Shanghai
   timezone:
     name: Asia/Shanghai
