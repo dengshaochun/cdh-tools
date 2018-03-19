@@ -6,11 +6,13 @@
     state: directory
     mode: 0700
 
+
 - name: copy rpm files to cluster nodes
   copy:
       src: "{{ item }}"
       dest: /tmp/rpm_pkg/{{ item }}
   with_items: "{{ agent_packages }}"
+
 
 - name: install cloudera agent rpm from a local file
   yum:
@@ -25,12 +27,14 @@
     path: /tmp/rpm_pkg
     state: absent
 
+
 - name: remove old cloudera-scm-agent lib path
   file:
     path: /var/lib/cloudera-scm-agent
     state: absent
   become: yes
   become_method: sudo
+
 
 - name: makesure /var/lib/cloudera-scm-agent path exists
   file:
@@ -42,6 +46,7 @@
   become: yes
   become_method: sudo
 
+
 - name: update /etc/cloudera-scm-agent/config.ini
   ini_file:
     dest: /etc/cloudera-scm-agent/config.ini
@@ -51,3 +56,9 @@
   become: yes
   become_method: sudo
   notify: restart scm-agent
+
+
+- name: clean /tmp/rpm_pkg dir
+  file:
+    path: /tmp/rpm_pkg
+    state: absent

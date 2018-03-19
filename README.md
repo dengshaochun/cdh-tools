@@ -22,6 +22,7 @@ Role | Description
 `install_scm_agent`  | install cloudera manager agent packages
 `install_client`     | install hadoop client
 `download_cdh_management_pkg` | download cloudera management packages to localhost
+`download_cdh_parcsl_pkg`     | download cloudera cdh parcel packages to server hosts
 
 
 ## Other Description

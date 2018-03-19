@@ -36,3 +36,9 @@
     remote_src: yes
   become: yes
   become_method: sudo
+
+
+- name: clean ~/bulid dir
+  file:
+    path: ~/bulid
+    state: absent

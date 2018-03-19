@@ -1,6 +1,6 @@
 ---
 
-- name: makesure localhost ~/build exists
+- name: makesure localhost directories exists
   file:
     path: "{{ item }}"
     mode: 0700
@@ -40,3 +40,9 @@
   shell: mv ~/build/{{item}} {{playbook_base_dir}}/roles/install_scm_server/files
   with_items: "{{ server_packages }}"
   when: download_before
+
+
+- name: clean ~/bulid dir
+  file:
+    path: ~/bulid
+    state: absent

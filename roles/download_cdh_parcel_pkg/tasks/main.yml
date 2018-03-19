@@ -1,0 +1,54 @@
+---
+
+- name: makesure remote directories exists
+  file:
+    path: "{{ item }}"
+    mode: 0700
+    state: directory
+  with_items:
+    - ~/build
+    - "/opt/cloudera/parcel-repo"
+  when:
+    - download_before
+    - ansible_hostname == server_host
+
+
+- name: download cloudera parcel packages
+  get_url:
+    url: http://archive.cloudera.com/cdh5/parcels/{{ cdh_version }}/
+    dest: ~/build/
+    owner: cloudera-scm
+    group: cloudera-scm
+  with_items:
+    - "{{ parcel_packages }}"
+  when:
+    - download_before
+    - ansible_hostname == server_host
+  become: yes
+  become_method: sudo
+
+
+- name: mv cloudera cdh packages to repo directory
+  shell: mv ~/build/{{item}} /opt/cloudera/parcel-repo/{{ item }}
+  with_items: "{{ parcel_packages }}"
+  when:
+    - download_before
+    - ansible_hostname == server_host
+
+
+- name: rename sha1 to sha
+  shell: find /opt/cloudera/parcel-repo -name '*.sha1' | sed 's/.sha1//g' | xargs -i mv {}.sha1 {}.sha
+  become: yes
+  become_method: sudo
+  when:
+    - download_before
+    - ansible_hostname == server_host
+
+
+- name: clean ~/bulid dir
+  file:
+    path: ~/bulid
+    state: absent
+  when:
+    - download_before
+    - ansible_hostname == server_host
