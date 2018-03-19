@@ -25,7 +25,9 @@
 
 
 - name: install or update system utils
-  yum: pkg="{{item}}" state=latest
+  yum:
+    pkg: "{{item}}"
+    state: latest
   with_items:
     - tree
     - mariadb
@@ -106,5 +108,21 @@
     name: firewalld
     state: stopped
     enabled: no
+  become: yes
+  become_method: sudo
+
+
+- name: disable SELinux
+  shell: setenforce 0
+  become: yes
+  become_method: sudo
+
+
+- name: disable SELinux in /etc/sysconfig/selinux
+  ini_file:
+    path: /etc/sysconfig/selinux
+    section: null
+    option: SELINUX
+    value: disabled
   become: yes
   become_method: sudo
