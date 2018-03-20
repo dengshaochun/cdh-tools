@@ -14,3 +14,10 @@ master
 slave
 
 [client]
+client1
+client2
+
+[kdc]
+kdc1
+kdc2
+kdc3

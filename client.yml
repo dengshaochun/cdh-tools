@@ -1,0 +1,7 @@
+---
+
+- hosts: client
+  roles:
+  - role: common
+  - role: ntp
+  - role: install_client

@@ -1,0 +1,67 @@
+---
+
+- name: Install kdc server packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - krb5-server
+    - openldap-clients
+    - krb5-workstation
+    - krb5-libs
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Configure krb5.conf file
+  template:
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Configure kdc.conf file
+  template:
+    src: kdc.conf.j2
+    dest: /var/kerberos/krb5kdc/kdc.conf
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Configure kadm5.acl file
+  template:
+    src: kadm5.acl.j2
+    dest: /var/kerberos/krb5kdc/kadm5.acl
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Create kdc database
+  shell: kdb5_util create -r "{{ kdc_realm }}" -P "{{ kdc_db_password }}" -s
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Create admin users
+  shell: kadmin.local "addprinc -pw {{ kdc_admin_password }} admin/admin@{{ kdc_realm }}"
+  tags: kdc
+  become: yes
+  become_method: sudo
+
+
+- name: Start kdc and kadmin server
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - krb5kdc
+    - kadmin
+  become: yes
+  become_method: sudo

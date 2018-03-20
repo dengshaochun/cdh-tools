@@ -1,8 +1,8 @@
 ---
 
-- name: makesure localhost ~/build exists
+- name: makesure /tmp/hadoop_cfg exists
   file:
-    path: ~/build
+    path: /tmp/hadoop_cfg
     mode: 0700
     state: directory
 
@@ -16,7 +16,9 @@
 
 
 - name: install hadoop client
-  yum: pkg="{{item}}" state=latest
+  yum:
+    pkg: "{{item}}"
+    state: latest
   with_items:
     - hadoop-client
   become: yes
@@ -26,19 +28,19 @@
 - name: download hdfsConfig packages
   get_url:
     url: "http://{{ server_host }}:{{ server_port }}/api/{{ server_api_version }}/clusters/cluster/services/hdfs/clientConfig"
-    dest: ~/build/hdfsConfig.tar.gz
+    dest: /tmp/hadoop_cfg/hdfsConfig.tar.gz
 
 
 - name: Extract hdfs.tar.gz into /etc/hadoop/conf/
   unarchive:
-    src: ~/build/hdfsConfig.tar.gz
+    src: /tmp/hadoop_cfg/hdfsConfig.tar.gz
     dest: /etc/hadoop/conf/
     remote_src: yes
   become: yes
   become_method: sudo
 
 
-- name: clean ~/bulid dir
+- name: clean /tmp/hadoop_cfg dir
   file:
-    path: ~/bulid
+    path: /tmp/hadoop_cfg
     state: absent
