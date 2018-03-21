@@ -3,15 +3,17 @@ Playbook for cloudera hadoop auto install
 
 ## Playbook Description
 - `cluster.yml` install cloudera manager server and agent playbook
-- `client.yml` install hadoop client use cluster config
+- `client.yml` install hadoop client use cluster config playbook
+- `kdc.yml` install kerberos kdc playbook
 
 ## Inventory Description
 Host Group | Description
 :--- | :---
 local            | localhost
-master           | the host well be install cloudera manager server
-slave            | the host well be install cloudera manager agent
-client           | the host well be install hadoop client
+master           | the host will be install cloudera manager server
+slave            | the host will be install cloudera manager agent
+client           | the host will be install hadoop client
+kdc              | the host will be install kerberos kdc
 
 ## Roles Description
 Role | Description

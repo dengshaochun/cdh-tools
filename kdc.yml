@@ -1,0 +1,5 @@
+---
+
+- hosts: kdc
+  roles:
+  - role: kdc
