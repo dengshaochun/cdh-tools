@@ -32,10 +32,37 @@
     - tree
     - mariadb
     - mysql-devel
-    - python-devel
     - ntp
     - htop
     - psmisc
+    - bind-utils
+    - chkconfig
+    - cyrus-sasl-gssapi
+    - cyrus-sasl-plain
+    - fuse
+    - fuse-libs
+    - gcc
+    - httpd
+    - init-functions
+    - libxslt
+    - mod_ssl
+    - MySQL-python
+    - openssl
+    - openssl-devel
+    - openssl-devel
+    - perl
+    - portmap
+    - postgresql-server
+    - python
+    - python-devel
+    - python-psycopg2
+    - python-setuptools
+    - sed
+    - service
+    - sqlite
+    - swig
+    - useradd
+    - zlib
   become: yes
   become_method: sudo
 

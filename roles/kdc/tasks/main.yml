@@ -44,13 +44,15 @@
 - name: Create kdc database
   shell: kdb5_util create -r "{{ kdc_realm }}" -P "{{ kdc_db_password }}" -s
   tags: kdc
+  when: ansible_hostname == kdc_master
   become: yes
   become_method: sudo
 
 
 - name: Create admin users
-  shell: kadmin.local "addprinc -pw {{ kdc_admin_password }} admin/admin@{{ kdc_realm }}"
+  shell: kadmin.local -q "addprinc -pw {{ kdc_admin_password }} admin/admin@{{ kdc_realm }}"
   tags: kdc
+  when: ansible_hostname == kdc_master
   become: yes
   become_method: sudo
 
@@ -63,5 +65,6 @@
   with_items:
     - krb5kdc
     - kadmin
+  when: ansible_hostname == kdc_master
   become: yes
   become_method: sudo
