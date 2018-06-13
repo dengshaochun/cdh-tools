@@ -98,9 +98,17 @@
   become_method: sudo
 
 
+- name: chmod +x /etc/rc.d/rc.local
+  file:
+    path: /etc/rc.d/rc.local
+    mode: 0755
+  become: yes
+  become_method: sudo
+
+
 - name: insert/update disable THP configuation block in /etc/rc.local
   blockinfile:
-    dest: /etc/rc.local
+    dest: /etc/rc.d/rc.local
     block: |
       if [[  -f /sys/kernel/mm/redhat_transparent_hugepage/enabled ]]; then
           echo never > /sys/kernel/mm/redhat_transparent_hugepage/enabled
